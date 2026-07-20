@@ -335,18 +335,18 @@
       <button id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">NO</button>
     </div>
 
-    <form id="rsvpForm" action="https://formsubmit.co/ohjohnny00@gmail.com" method="POST" onsubmit="handleSubmit(event)">
+    <form id="rsvpForm" onsubmit="handleSubmit(event)">
       <div class="field">
         <label>Pangalan mo?</label>
-        <input type="text" name="Pangalan" required>
+        <input type="text" id="nameInput" name="Pangalan" placeholder="e.g. Jun" required>
       </div>
       <div class="field">
         <label>Kailan?</label>
-        <input type="text" name="Kailan" placeholder="Kailan?">
+        <input type="text" id="kailan" name="Kailan" placeholder="Kailan?" required>
       </div>
       <div class="field">
         <label>Saan?</label>
-        <input type="text" name="Saan" placeholder="Saan?">
+        <input type="text" id="saan" name="Saan" placeholder="Saan?" required>
       </div>
       <button type="submit" id="submitBtn">Submit 🍻</button>
     </form>
@@ -392,15 +392,32 @@
   function handleSubmit(event) {
     event.preventDefault();
 
+    const name = document.getElementById('nameInput').value;
+    const kailan = document.getElementById('kailan').value;
+    const saan = document.getElementById('saan').value;
+
+    const message =
+`🍻 SHOT NA GUYS! 🍻
+
+👤 Sino: ${name}
+🗓️ Kailan: ${kailan}
+📍 Saan: ${saan}
+
+Wag kayo mag aalangan, punta na kayo! 🥴🎉
+Sagot na yan, walang uuwing malinaw! 🍺🍺🍺`;
+
+    // Show confirmation, then cheer at 2s, then copy to clipboard
     showDoneBox();
+    attemptCopy(message);
 
     setTimeout(() => {
       triggerCheer();
     }, 2000);
 
-    setTimeout(() => {
-      rsvpForm.submit();
-    }, 5000);
+    // Send to email via mailto (backup method)
+    const email = 'ohjohnny00@gmail.com';
+    const subject = 'SHOT NA! - ' + name;
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
   function triggerCheer() {
@@ -426,6 +443,34 @@
       cheerLayer.appendChild(span);
       setTimeout(() => span.remove(), 3200);
     }
+  }
+
+  function attemptCopy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("✅ Copied to clipboard!");
+      }).catch(() => {
+        showToast("📧 Opening email client...");
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast("✅ Copied to clipboard!");
+    } catch (err) {
+      showToast("📧 Opening email client...");
+    }
+    document.body.removeChild(textarea);
   }
 
   function showDoneBox() {
