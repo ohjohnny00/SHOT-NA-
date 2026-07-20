@@ -2,121 +2,142 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOT NA!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>a question for you 💌</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap');
+
   :root {
-    --bg-dark: #14161a;
-    --card-bg: #1e2127;
-    --amber: #ffb703;
-    --orange: #ff7b00;
-    --beer: #f4a300;
-    --text-light: #f5f5f5;
-    --text-muted: #a0a4ab;
+    --rose-deep: #5e1330;
+    --rose-mid: #8c2547;
+    --pink-soft: #ffc2d6;
+    --cream: #fff6ee;
+    --neon-pink: #ff2e88;
+    --gold: #ffd889;
+    --ink: #3a0f1f;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   html, body {
     height: 100%;
     margin: 0;
-    padding: 0;
   }
 
   body {
-    background: radial-gradient(circle at 50% 20%, #23262d 0%, var(--bg-dark) 70%);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: var(--text-light);
+    font-family: 'Quicksand', sans-serif;
+    color: var(--cream);
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(125deg, var(--rose-deep), var(--rose-mid) 45%, #3d0e22 100%);
+    background-size: 220% 220%;
+    animation: driftGradient 16s ease-in-out infinite;
     padding: 20px;
   }
 
-  .card {
-    background: var(--card-bg);
-    border-radius: 24px;
-    padding: 40px 32px;
+  @keyframes driftGradient {
+    0%   { background-position: 0% 30%; }
+    50%  { background-position: 100% 70%; }
+    100% { background-position: 0% 30%; }
+  }
+
+  canvas#heartsCanvas {
+    position: fixed;
+    inset: 0;
     width: 100%;
-    max-width: 420px;
-    text-align: center;
-    box-shadow:
-      0 0 0 1px rgba(255, 183, 3, 0.08),
-      0 0 40px rgba(255, 123, 0, 0.15),
-      0 20px 60px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ---------- Glass Card ---------- */
+  .card {
     position: relative;
-    animation: floatIn 0.6s ease-out;
+    z-index: 5;
+    width: 100%;
+    max-width: 460px;
+    padding: 48px 36px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 0 0 1px rgba(255, 46, 136, 0.12),
+      0 20px 60px rgba(0, 0, 0, 0.45),
+      0 0 60px rgba(255, 46, 136, 0.18);
+    text-align: center;
+    overflow: visible;
   }
 
-  @keyframes floatIn {
-    from { opacity: 0; transform: translateY(20px) scale(0.96); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    opacity: 0.85;
   }
 
-  h1 {
-    font-size: 2.6rem;
-    margin: 0 0 8px;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, var(--amber), var(--orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .subtitle {
-    color: var(--text-muted);
-    font-size: 1rem;
-    margin-bottom: 32px;
+  h1.question {
+    font-family: 'Playfair Display', serif;
     font-style: italic;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    text-shadow: 0 0 30px rgba(255, 46, 136, 0.35);
   }
 
+  .subtext {
+    font-size: 0.95rem;
+    color: var(--pink-soft);
+    margin-bottom: 34px;
+    opacity: 0.9;
+  }
+
+  /* ---------- Buttons ---------- */
   .btn-row {
+    position: relative;
     display: flex;
     gap: 16px;
     justify-content: center;
-    position: relative;
-    min-height: 60px;
-    flex-wrap: wrap;
+    min-height: 62px;
   }
 
   button {
-    font-family: inherit;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
-    padding: 14px 32px;
+    font-size: 1.05rem;
+    padding: 14px 34px;
     border: none;
-    border-radius: 14px;
+    border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, font-size 0.2s ease, padding 0.2s ease;
   }
 
   #yesBtn {
-    background: linear-gradient(135deg, var(--amber), var(--orange));
-    color: #1a1300;
-    box-shadow: 0 0 20px rgba(255, 183, 3, 0.5);
+    background: linear-gradient(135deg, var(--neon-pink), #ff6fa5);
+    color: #fff;
+    box-shadow: 0 0 24px rgba(255, 46, 136, 0.55);
   }
 
   #yesBtn:hover {
-    transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 0 30px rgba(255, 183, 3, 0.75);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 36px rgba(255, 46, 136, 0.8);
   }
 
   #noBtn {
-    background: #2a2d34;
-    color: var(--text-light);
-    border: 1px solid #3a3d44;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--cream);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     position: fixed;
     z-index: 999;
-    transition: top 0.18s ease, left 0.18s ease;
-  }
-
-  #noBtn:hover {
-    background: #3a3d44;
-    box-shadow: 0 0 15px rgba(255, 123, 0, 0.3);
+    transition: top 0.16s ease, left 0.16s ease, font-size 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
   }
 
   #noBtn.static-pos {
@@ -125,137 +146,97 @@
     left: auto;
   }
 
-  .hidden {
-    display: none !important;
-  }
+  .hidden { display: none !important; }
 
-  #rsvpForm {
-    margin-top: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  /* ---------- Reveal ---------- */
+  .reveal {
     opacity: 0;
     max-height: 0;
+    transform: scale(0.92);
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.6s ease;
+    transition: opacity 0.7s ease, transform 0.7s ease, max-height 0.8s ease;
   }
 
-  #rsvpForm.show {
+  .reveal.show {
     opacity: 1;
-    max-height: 600px;
+    max-height: 900px;
+    transform: scale(1);
+    margin-top: 8px;
   }
 
-  .field {
-    text-align: left;
-  }
-
-  label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--beer);
-    margin-bottom: 6px;
-    font-weight: 600;
-  }
-
-  input {
-    width: 100%;
-    padding: 12px 14px;
-    background: #14161a;
-    border: 1px solid #3a3d44;
-    border-radius: 10px;
-    color: var(--text-light);
-    font-size: 1rem;
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  input:focus {
-    border-color: var(--orange);
-    box-shadow: 0 0 12px rgba(255, 123, 0, 0.35);
-  }
-
-  input::-webkit-calendar-picker-indicator {
-    filter: invert(0.8) sepia(1) saturate(4) hue-rotate(-10deg);
-    cursor: pointer;
-  }
-
-  #submitBtn {
-    background: linear-gradient(135deg, var(--orange), #ff5400);
-    color: #fff;
-    margin-top: 4px;
-    box-shadow: 0 0 20px rgba(255, 84, 0, 0.4);
-  }
-
-  #submitBtn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 0 28px rgba(255, 84, 0, 0.65);
-  }
-
-  #submitBtn:active {
-    transform: translateY(0) scale(0.98);
-  }
-
-  .yes-locked {
-    opacity: 0.55;
+  .prompt.fading {
+    opacity: 0;
+    transform: scale(0.92);
+    max-height: 0;
+    margin: 0;
     pointer-events: none;
-    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.6s ease, margin 0.6s ease;
+    overflow: hidden;
   }
 
-  #doneBox {
-    margin-top: 28px;
-    padding: 28px 20px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(255, 183, 3, 0.12), rgba(255, 84, 0, 0.12));
-    border: 1px solid rgba(255, 123, 0, 0.4);
-    box-shadow: 0 0 30px rgba(255, 123, 0, 0.25);
-    animation: popIn 0.4s ease-out;
+  .heart-icon {
+    font-size: 2.6rem;
+    margin: 6px 0 18px;
+    animation: pulseHeart 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(255, 46, 136, 0.65));
   }
 
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: scale(1); }
+  @keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
   }
 
-  .done-emoji {
-    font-size: 2.4rem;
-    margin-bottom: 8px;
-  }
-
-  .done-title {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, var(--amber), var(--orange));
+  h2.love-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.9rem;
+    margin: 0 0 16px;
+    background: linear-gradient(90deg, var(--gold), var(--pink-soft));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .done-subtitle {
-    margin-top: 6px;
+  .love-msg {
     font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-light);
-    letter-spacing: 0.5px;
+    line-height: 1.75;
+    color: var(--cream);
+    opacity: 0.95;
+    margin-bottom: 28px;
+    text-align: left;
   }
 
-  /* Custom alert / toast */
+  .love-msg strong { color: var(--gold); }
+
+  #copyBtn {
+    background: linear-gradient(135deg, var(--gold), #ffb877);
+    color: var(--ink);
+    box-shadow: 0 0 20px rgba(255, 216, 137, 0.5);
+    font-size: 0.95rem;
+    padding: 13px 28px;
+  }
+
+  #copyBtn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 0 28px rgba(255, 216, 137, 0.75);
+  }
+
+  /* ---------- Toast ---------- */
   #toast {
     position: fixed;
     left: 50%;
-    bottom: 40px;
+    bottom: 38px;
     transform: translateX(-50%) translateY(20px);
-    background: var(--card-bg);
-    border: 1px solid var(--orange);
-    color: var(--text-light);
-    padding: 16px 24px;
+    background: rgba(60, 12, 30, 0.9);
+    border: 1px solid var(--neon-pink);
+    color: var(--cream);
+    padding: 15px 24px;
     border-radius: 14px;
-    box-shadow: 0 0 30px rgba(255, 123, 0, 0.4);
-    font-size: 0.95rem;
+    box-shadow: 0 0 30px rgba(255, 46, 136, 0.45);
+    font-size: 0.92rem;
     max-width: 90vw;
     text-align: center;
-    z-index: 1000;
+    z-index: 2000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -266,344 +247,229 @@
     transform: translateX(-50%) translateY(0);
   }
 
-  /* Cheer animation */
-  #cheerLayer {
+  /* ---------- Confetti hearts ---------- */
+  .confetti-heart {
     position: fixed;
-    inset: 0;
-    pointer-events: none;
+    top: -40px;
+    font-size: 1.4rem;
     z-index: 1500;
-    overflow: hidden;
-  }
-
-  .cheer-emoji {
-    position: absolute;
-    bottom: -60px;
-    font-size: 2rem;
-    opacity: 0;
-    animation: cheerRise 2.2s ease-out forwards;
-  }
-
-  @keyframes cheerRise {
-    0% {
-      transform: translateY(0) rotate(0deg) scale(0.6);
-      opacity: 0;
-    }
-    15% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-100vh) rotate(360deg) scale(1.2);
-      opacity: 0;
-    }
-  }
-
-  .cheer-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.6);
-    font-size: 3rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    background: linear-gradient(90deg, var(--amber), var(--orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    opacity: 0;
-    z-index: 1600;
     pointer-events: none;
-    animation: cheerPop 1.8s ease-out forwards;
+    animation: fallHeart linear forwards;
   }
 
-  @keyframes cheerPop {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(-6deg); }
-    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(3deg); }
-    35% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-    75% { opacity: 1; }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  @keyframes fallHeart {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(var(--drift, 0px)) rotate(var(--spin, 360deg)); opacity: 0; }
   }
 
-  /* Mobile responsiveness */
   @media (max-width: 480px) {
-    body {
-      padding: 16px;
-    }
-
-    h1 { font-size: 2.1rem; }
-    
-    .card { 
-      padding: 32px 22px;
-      border-radius: 20px;
-    }
-    
-    button { 
-      padding: 12px 22px; 
-      font-size: 1rem; 
-    }
-
-    .btn-row {
-      gap: 12px;
-    }
-
-    .cheer-text { font-size: 2.1rem; }
-
-    .done-title { font-size: 1.5rem; }
-
-    input {
-      font-size: 16px; /* Prevents zoom on iOS */
-    }
+    .card { padding: 38px 24px; border-radius: 22px; }
+    h1.question { font-size: 1.6rem; }
+    h2.love-title { font-size: 1.55rem; }
+    button { font-size: 0.95rem; padding: 12px 26px; }
   }
 
-  /* Landscape mode adjustments */
-  @media (max-height: 600px) and (orientation: landscape) {
-    body {
-      padding: 12px;
-      min-height: auto;
-    }
-
-    .card {
-      padding: 24px 20px;
-      max-width: 90vw;
-    }
-
-    h1 { font-size: 1.8rem; }
-
-    button {
-      padding: 10px 18px;
-      font-size: 0.95rem;
-    }
-
-    #rsvpForm.show {
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-
-    .cheer-text { font-size: 1.6rem; }
-  }
-
-  /* Very small devices */
-  @media (max-width: 320px) {
-    h1 { font-size: 1.8rem; }
-    
-    .card { 
-      padding: 24px 16px;
-    }
-    
-    button { 
-      padding: 10px 16px; 
-      font-size: 0.95rem;
-    }
-
-    .btn-row {
-      gap: 8px;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    body, .heart-icon, .confetti-heart { animation: none !important; }
   }
 </style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>SHOT NA! 🍻</h1>
-    <p class="subtitle">Bawal drawing</p>
+<canvas id="heartsCanvas"></canvas>
+
+<div class="card">
+
+  <div class="prompt" id="promptBlock">
+    <div class="eyebrow">a very important question</div>
+    <h1 class="question">Do you know how much I love you? 💗</h1>
+    <p class="subtext">warning: extremely cheesy content ahead, proceed with heart wide open</p>
 
     <div class="btn-row">
       <button id="yesBtn" onclick="handleYes()">YES</button>
       <button id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">NO</button>
     </div>
-
-    <form id="rsvpForm" onsubmit="handleSubmit(event)">
-      <div class="field">
-        <label for="nameInput">👤 Pangalan mo?</label>
-        <input type="text" id="nameInput" placeholder="e.g. Jun" required>
-      </div>
-      <div class="field">
-        <label for="whenInput">🗓️ Kailan?</label>
-        <input type="datetime-local" id="whenInput" required>
-      </div>
-      <div class="field">
-        <label for="whereInput">📍 Saan?</label>
-        <input type="text" id="whereInput" placeholder="e.g. Kuya Jun's Videoke Bar" required>
-      </div>
-      <button type="submit" id="submitBtn">Submit 🍻</button>
-    </form>
-
-    <div id="doneBox" class="hidden">
-      <div class="done-emoji">🍻✅</div>
-      <div class="done-title">DONE!</div>
-      <div class="done-subtitle">WAG KANG TALKSHIT</div>
-    </div>
   </div>
 
-  <div id="toast"></div>
-  <div id="cheerLayer"></div>
+  <div class="reveal" id="revealBlock">
+    <div class="heart-icon">💖</div>
+    <h2 class="love-title">I knew you'd say yes.</h2>
+    <p class="love-msg">
+      From the moment you smiled at me, I knew my heart had found its favorite place to live.<br><br>
+      You are my <strong>favorite hello</strong> and my hardest <strong>goodbye</strong>, my calm in the chaos, and my
+      favorite kind of trouble. Every ordinary moment turns into my favorite memory the second you're in it.<br><br>
+      So here it is, plainly and completely: <strong>I love you</strong> — today, tomorrow, and every messy, beautiful
+      day after that. 🌹
+    </p>
+    <button id="copyBtn" onclick="copyLoveNote()">Send this to my heart 💌</button>
+  </div>
+
+</div>
+
+<div id="toast"></div>
 
 <script>
+  /* ============ Ambient floating hearts (canvas) ============ */
+  const canvas = document.getElementById('heartsCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, hearts = [];
+
+  function resizeCanvas() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function makeHeart() {
+    return {
+      x: Math.random() * W,
+      y: H + Math.random() * H,
+      size: 10 + Math.random() * 18,
+      speed: 0.3 + Math.random() * 0.6,
+      drift: (Math.random() - 0.5) * 0.4,
+      sway: Math.random() * Math.PI * 2,
+      opacity: 0.15 + Math.random() * 0.35
+    };
+  }
+
+  const HEART_COUNT = 34;
+  for (let i = 0; i < HEART_COUNT; i++) hearts.push(makeHeart());
+
+  function drawHeart(x, y, size, opacity) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(size / 20, size / 20);
+    ctx.beginPath();
+    ctx.moveTo(0, 6);
+    ctx.bezierCurveTo(0, 2, -6, -6, -12, -2);
+    ctx.bezierCurveTo(-18, 2, -12, 12, 0, 20);
+    ctx.bezierCurveTo(12, 12, 18, 2, 12, -2);
+    ctx.bezierCurveTo(6, -6, 0, 2, 0, 6);
+    ctx.closePath();
+    ctx.fillStyle = `rgba(255, 178, 206, ${opacity})`;
+    ctx.shadowColor = 'rgba(255, 46, 136, 0.6)';
+    ctx.shadowBlur = 12;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function animateHearts() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.y -= h.speed;
+      h.sway += 0.01;
+      h.x += Math.sin(h.sway) * h.drift;
+      if (h.y < -30) Object.assign(h, makeHeart(), { y: H + 20 });
+      drawHeart(h.x, h.y, h.size, h.opacity);
+    }
+    requestAnimationFrame(animateHearts);
+  }
+  animateHearts();
+
+  /* ============ Dodging NO button ============ */
   const noBtn = document.getElementById('noBtn');
   const yesBtn = document.getElementById('yesBtn');
-  const rsvpForm = document.getElementById('rsvpForm');
-  const doneBox = document.getElementById('doneBox');
+  const promptBlock = document.getElementById('promptBlock');
+  const revealBlock = document.getElementById('revealBlock');
   const toast = document.getElementById('toast');
 
-  // Store timer globally to prevent conflicts
-  window._toastTimer = null;
+  let dodgeCount = 0;
 
   function dodgeButton() {
-    // Don't dodge on very small screens or if NO button is hidden
-    if (window.innerWidth < 320 || noBtn.classList.contains('hidden')) {
-      return;
-    }
-
+    dodgeCount++;
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Fixed: Calculate bounds with proper safety checks
-    const maxX = Math.max(10, window.innerWidth - btnWidth - 10);
-    const maxY = Math.max(10, window.innerHeight - btnHeight - 10);
+    const maxX = window.innerWidth - btnWidth - 12;
+    const maxY = window.innerHeight - btnHeight - 12;
 
-    // Ensure we stay within bounds
-    const randomX = Math.max(10, Math.min(maxX, Math.floor(Math.random() * maxX)));
-    const randomY = Math.max(10, Math.min(maxY, Math.floor(Math.random() * maxY)));
+    const randomX = Math.max(12, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(12, Math.floor(Math.random() * maxY));
 
     noBtn.classList.remove('static-pos');
     noBtn.style.left = randomX + 'px';
     noBtn.style.top = randomY + 'px';
+
+    // The more you chase it, the smaller (and cheekier) it gets
+    const shrink = Math.max(0.55, 1 - dodgeCount * 0.06);
+    noBtn.style.fontSize = (1.05 * shrink) + 'rem';
+    noBtn.style.padding = (14 * shrink) + 'px ' + (34 * shrink) + 'px';
   }
 
-  function handleYes() {
-    noBtn.classList.add('hidden');
-    yesBtn.classList.add('yes-locked');
-    rsvpForm.classList.add('show');
-    // Focus first input for better UX
-    setTimeout(() => document.getElementById('nameInput').focus(), 300);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const name = document.getElementById('nameInput').value.trim();
-    const whenRaw = document.getElementById('whenInput').value;
-    const where = document.getElementById('whereInput').value.trim();
-
-    let whenFormatted = whenRaw;
-    if (whenRaw) {
-      // Parse datetime-local correctly (local time, not UTC)
-      const [date, time] = whenRaw.split('T');
-      const [year, month, day] = date.split('-');
-      const [hours, minutes] = time.split(':');
-      const dateObj = new Date(year, month - 1, day, hours, minutes);
-      
-      whenFormatted = dateObj.toLocaleString('en-PH', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
-    }
-
-    const message =
-`🍻 SHOT NA GUYS! 🍻
-
-👤 Sino: ${name}
-🗓️ Kailan: ${whenFormatted}
-📍 Saan: ${where}
-
-Punta ah! Bawal Drawing 🥴🎉`;
-
-    // Show confirmation, copy, then cheer
-    showDoneBox();
-    attemptCopy(message);
-
-    setTimeout(() => {
-      triggerCheer();
-    }, 2000);
-
-    // Fixed: Corrected syntax error (missing closing quote)
-    setTimeout(() => {
-      if (!window.close()) {
-        showToast("✅ Exit mona!!");
-      }
-    }, 5000);
-  }
-
-  function triggerCheer() {
-    const cheerLayer = document.getElementById('cheerLayer');
-    const emojis = ['🍻', '🎉', '🥂', '🍺', '🎊'];
-
-    // Big glowing "CHEERS!" text
-    const cheerText = document.createElement('div');
-    cheerText.className = 'cheer-text';
-    cheerText.textContent = 'CHEERS! 🍻';
-    document.body.appendChild(cheerText);
-    setTimeout(() => cheerText.remove(), 1900);
-
-    // Rising emoji burst
-    const emojiCount = 24;
-    for (let i = 0; i < emojiCount; i++) {
-      const span = document.createElement('span');
-      span.className = 'cheer-emoji';
-      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      span.style.left = Math.random() * 100 + 'vw';
-      span.style.animationDelay = (Math.random() * 0.6) + 's';
-      span.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
-      cheerLayer.appendChild(span);
-      setTimeout(() => span.remove(), 3200);
-    }
-  }
-
-  function attemptCopy(text) {
-    // Modern approach: use Clipboard API with fallback
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          showToast("✅ OO AGAD SI LASINGGERO!");
-        })
-        .catch(() => {
-          showToast("⚠️ Hindi na-copy. I-type na lang manually sa GC.");
-        });
-    } else {
-      // Fallback for older browsers
-      showToast("⚠️ Hindi na-copy. I-type na lang manually sa GC.");
-    }
-  }
-
-  function showDoneBox() {
-    rsvpForm.classList.remove('show');
-    setTimeout(() => {
-      rsvpForm.classList.add('hidden');
-      doneBox.classList.remove('hidden');
-    }, 350);
-  }
-
-  function showToast(msg) {
-    // Fixed: Clear previous timer to prevent conflicts
-    if (window._toastTimer) {
-      clearTimeout(window._toastTimer);
-    }
-    
-    toast.textContent = msg;
-    toast.classList.add('show');
-    
-    window._toastTimer = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3200);
-  }
-
-  // Reposition NO button safely if window resizes
   window.addEventListener('resize', () => {
     if (!noBtn.classList.contains('hidden') && !noBtn.classList.contains('static-pos')) {
       const rect = noBtn.getBoundingClientRect();
-      const maxX = Math.max(10, window.innerWidth - rect.width - 10);
-      const maxY = Math.max(10, window.innerHeight - rect.height - 10);
-      noBtn.style.left = Math.min(rect.left, maxX) + 'px';
-      noBtn.style.top = Math.min(rect.top, maxY) + 'px';
+      const maxX = window.innerWidth - rect.width - 12;
+      const maxY = window.innerHeight - rect.height - 12;
+      noBtn.style.left = Math.min(rect.left, Math.max(12, maxX)) + 'px';
+      noBtn.style.top = Math.min(rect.top, Math.max(12, maxY)) + 'px';
     }
   });
 
-  // Prevent text selection on button dodging
-  noBtn.addEventListener('selectstart', (e) => e.preventDefault());
+  /* ============ YES → confetti + reveal ============ */
+  function handleYes() {
+    noBtn.classList.add('hidden');
+    burstConfetti();
+
+    promptBlock.classList.add('fading');
+    setTimeout(() => {
+      revealBlock.classList.add('show');
+    }, 350);
+  }
+
+  function burstConfetti() {
+    const symbols = ['💖', '💕', '💗', '🌹', '💘', '✨'];
+    const count = 42;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-heart';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.setProperty('--drift', (Math.random() * 200 - 100) + 'px');
+      el.style.setProperty('--spin', (Math.random() * 720 - 360) + 'deg');
+      el.style.fontSize = (1 + Math.random() * 1.6) + 'rem';
+      el.style.animationDuration = (2.4 + Math.random() * 1.6) + 's';
+      el.style.animationDelay = (Math.random() * 0.4) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4500);
+    }
+  }
+
+  /* ============ Copy cute note ============ */
+  function copyLoveNote() {
+    const note = `💌 I love you — today, tomorrow, and every messy, beautiful day after that. 💖`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(note).catch(() => fallbackCopy(note));
+      showToast("Copied straight to your clipboard 💗 paste it anywhere.");
+    } else {
+      fallbackCopy(note);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast("Copied straight to your clipboard 💗 paste it anywhere.");
+    } catch (err) {
+      showToast("Couldn't auto-copy — but the words still stand. 💖");
+    }
+    document.body.removeChild(ta);
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
 </script>
 
 </body>
