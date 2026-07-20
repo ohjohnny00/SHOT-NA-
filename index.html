@@ -354,7 +354,7 @@
     <div id="doneBox" class="hidden">
       <div class="done-emoji">🍻✅</div>
       <div class="done-title">DONE!</div>
-      <div class="done-subtitle">WAG KANG TALKSHIT</div>
+      <div class="done-subtitle">WAG KANG PAASA! 💪</div>
     </div>
   </div>
 
@@ -397,14 +397,16 @@
     const saan = document.getElementById('saan').value;
 
     const message =
-`🍻 SHOT NA GUYS! 🍻
+`🍻 SHOT NA! 🍻
+━━━━━━━━━━━━━━━━━━━
 
 👤 Sino: ${name}
-🗓️ Kailan: ${kailan}
+📅 Kailan: ${kailan}
 📍 Saan: ${saan}
 
-Wag kayo mag aalangan, punta na kayo! 🥴🎉
-Sagot na yan, walang uuwing malinaw! 🍺🍺🍺`;
+━━━━━━━━━━━━━━━━━━━
+Wag Kang Paasa! Pumunta ka! 💪
+🍺 See you there! 🍺`;
 
     // Show confirmation, then cheer at 2s, then copy to clipboard
     showDoneBox();
@@ -416,7 +418,7 @@ Sagot na yan, walang uuwing malinaw! 🍺🍺🍺`;
 
     // Send to email via mailto (backup method)
     const email = 'ohjohnny00@gmail.com';
-    const subject = 'SHOT NA! - ' + name;
+    const subject = '🍻 SHOT NA! - ' + name;
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
